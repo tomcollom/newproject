@@ -1,46 +1,69 @@
 require 'selenium-webdriver'
-require 'watir'
-require 'nokogiri'
 require 'active_support'
 require 'date'
 require 'active_support/core_ext/integer/time'
+require 'uri'
 
+# Enter Start Date for Scrape
+@d = Date.new(2016,11,10)
 
+# Format date and pass to URL
+mymonth = (@d).strftime("%m")
+myyear = (@d).strftime("%y")
+
+# Selenium Configuration
 options = Selenium::WebDriver::Chrome::Options.new(args: ['headless'])
-driver = Selenium::WebDriver.for(:chrome, options: options)
+$driver = Selenium::WebDriver.for(:chrome, options: options)
 
-# NEED TO CHANGE THE URL FOR EACH MONTH
+# Request with params
+$driver.get("https://www.timeanddate.com/weather/uk/london/historic?month=#{mymonth}&year=20#{myyear}")
 
-driver.get('https://www.timeanddate.com/weather/uk/london/historic')
+# Keep repeating until this is met
+while @d >= 1
 
-# Ad a day to the current day
-
-d = Date.new(2018,9,5)
-#puts d
-#plusday = (d+1).strftime("%Y%m%d")
-#puts plusday
-
-# Find select option and click
-#driver.find_element(:id, "wt-his-select").find_element(:css, "option[value='#{plusday}']").click
-
-select = driver.find_element(:id, "wt-his-select")
+# main loop
+def loop_one
+select = $driver.find_element(:id, "wt-his-select")
 alloptions = select.find_elements(:tag_name, 'option')
+puts "spun again"
+puts "https://www.timeanddate.com/weather/uk/london/historic?month=#{@mymonth}&year=20#{@myyear}"
+
 alloptions.each do |i|
 puts i.attribute('value')
 i.click
-sleep 3
-puts driver.find_element(:class, "sticky-wr").text
-
+sleep 1
+puts $driver.find_element(:class, "sticky-wr").text
 end
 
+@newdate = @d+1.month
+
+end #end loopone
+
+loop_one 
+
+def after
+ puts "running after method"
 # run after all collected for month
-v = (d+1.month).strftime("%m")
-d = v
-#plusday = (d+1).strftime("%Y%m%d")
-puts v
+mymonth = (@newdate).strftime("%m")
+myyear = (@newdate).strftime("%y")
 
-driver.get('https://www.timeanddate.com/weather/uk/london/historic?month=#{plusday}&year=2009')
+$driver.get("https://www.timeanddate.com/weather/uk/london/historic?month=#{mymonth}&year=20#{myyear}")
 
+# Re-define @d as @newdate
+@d = @newdate
+end
+
+after
+
+end #end main while loop
+
+
+
+
+
+
+
+#CALL MAIN LOOP AGAIN
 
 # Wait for Browser to load
 #sleep 2
