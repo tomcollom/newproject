@@ -32,10 +32,11 @@ gem 'nokogiri'
 gem 'byebug'
 gem 'mechanize' 
 gem 'watir'
-gem 'fileutils'
-gem 'capybara'
 gem 'selenium-webdriver'
 gem 'chromedriver-helper'
+gem 'activesupport'
+gem 'date'
+
 
 
 # Use ActiveStorage variant
