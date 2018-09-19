@@ -32,14 +32,28 @@ alloptions.each do |i|
 puts i.attribute('value')
 i.click
 sleep 1
-puts $driver.find_element(:class, "sticky-wr").text
+
+#puts $driver.find_element(:class, "sticky-wr").text
+
+
+#Formatting Output / Iterate for DB Entry 
+
+$driver.find_elements(xpath: "//table[@id='wt-his']//tr").each.with_index(1) do |_,index|
+$driver.find_elements(xpath: "//table[@id='wt-his']//tr[#{index}]/th|.//table[@id='wt-his']//tr[#{index}]/td[position()>1]").each do |cell1|
+print cell1.text.split(',')
 end
 
+puts '*****END_OF_LINE*******'
+end
+
+
+end
+
+#Add a month to date 
 @newdate = @d+1.month
 
 end #end loopone
-
-loop_one 
+loop_one # Run loop_one
 
 def after
  puts "running after method"
@@ -52,33 +66,10 @@ $driver.get("https://www.timeanddate.com/weather/uk/london/historic?month=#{mymo
 # Re-define @d as @newdate
 @d = @newdate
 end
-
-after
+after # Run after
 
 end #end main while loop
 
-
-
-
-
-
-
-#CALL MAIN LOOP AGAIN
-
-# Wait for Browser to load
-#sleep 2
-
-# Aknowledge browser is back
-#puts "Awake :)"
-
-#puts driver.find_element(:class, "sticky-wr").text
-
-#driver.find_elements(xpath: "//table[@id='wt-his']//tr").each.with_index(1) do |_,index|
- # driver.find_elements(xpath: "//table[@id='wt-his']//tr[#{index}]/td").each do |cell|
-   # print cell.text
- # end
- # puts '*****'
-#end
 
 
 
