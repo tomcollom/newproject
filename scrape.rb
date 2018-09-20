@@ -3,8 +3,8 @@ require 'active_support'
 require 'date'
 require 'active_support/core_ext/integer/time'
 require 'uri'
-require 'active_record'
 
+Weather.create(city: "Southampton", date: 05032016, time: "09:50am", temperature: "60 Deg.", description: "cloudy", windspeed: "88%")
 
 # Enter Start Date for Scrape
 @d = Date.new(2016,11,10)

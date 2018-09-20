@@ -9,4 +9,7 @@
   
   #Character.create(name: 'Luke', movie: movies.first)
 
+#Examples
 
+#Weather.create :city => "Southampton", :date => "05032016", :time => "09:50am", :temperature => "60 Deg", :description => "cloudy", :windspeed => "88%"
+#Weather.create(city: "Southampton", date: 05032016, time: "09:50am", temperature: "60 Deg.", description: "cloudy", windspeed: "88%")
