@@ -1,6 +1,14 @@
+
 <p id="notice"><%= notice %></p>
 
-<h1>Weathers</h1>
+<h1>Willam's Weather Database</h1>
+
+<span>Todays Date <%= @d %></span><br>
+
+
+<%= button_to 'Run Scraoer', loop_path, method: :get %>
+
+<%= @allthem %>
 
 <table>
   <thead>

@@ -32,7 +32,6 @@ puts "https://www.timeanddate.com/weather/uk/london/historic?month=#{@mymonth}&y
 
 alloptions.each do |i|
 puts i.attribute('value')
-@currentoption = i.attribute('value')
 i.click
 sleep 1
 
@@ -45,8 +44,6 @@ $driver.find_elements(xpath: "//table[@id='wt-his']//tr[#{index}]|.//table[@id='
 $line = cell1.text.split(',')
 print $line
 
-
-Weather.create(city: "Southampton", date: 05032016, time: "09:50am", temperature: "60 Deg.", description: "cloudy", windspeed: "88%")
 
 
 end

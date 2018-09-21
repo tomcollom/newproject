@@ -1,2 +1,8 @@
 module WeathersHelper
+  
+
+  
+  
+  
+  
 end

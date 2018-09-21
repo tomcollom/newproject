@@ -1,4 +1,2 @@
 class Weather < ApplicationRecord
-
-
 end
