@@ -14,16 +14,15 @@ before_action :set_weather, only: [:show, :edit, :update, :destroy]
 # GET /weathers.json
 
 def index
-
-@d = Date.new(2016,11,10)
-
+  
 # main loop
 def loop_one
   
-  
-  # Enter Start Date for Scrape
-@d = Date.new(2016,11,10)
+@d = Date.new(2018,9,21)
 
+# Keep repeating until todays date is hit 
+while @d < Date.today
+  
 # Format date and pass to URL
 mymonth = (@d).strftime("%m")
 myyear = (@d).strftime("%y")
@@ -53,24 +52,51 @@ tablecells.clear
 #This is scraping the data -->
 
 $driver.find_elements(xpath: "//table[@id='wt-his']/tbody/tr").each.with_index(1) do |_,index|   # Find each table ROW 
-$driver.find_elements(xpath: "//table[@id='wt-his']//tr[#{index}]|.//table[@id='wt-his']//tr[#{index}]/td[position()>1]").each do |cell1| # Find each CELL for the INDEX ROW above 
+$driver.find_elements(xpath: "//table[@id='wt-his']//tr[#{index}]/td[position()>1]").each do |cell1| # Find each CELL for the INDEX ROW above 
+
+#//table[@id='wt-his']//tr[#{index}]|.
+
 $line = cell1.text.split(',')
-print $line
+
+#print $line
 
 tablecells.push($line)
 
-Weather.create :city => "#{tablecells[0]}", :date => "#{tablecells[1]}", :time => "#{tablecells[2]}", :temperature => "#{tablecells[3]}", :description => "#{tablecells[4]}", :windspeed => "#{tablecells[5]}"
+puts tablecells[0] 
+
+tablecells.clear
 
 
+#Weather.create :city => "#{tablecells[0]}", :date => "#{tablecells[1]}", :time => "#{tablecells[2]}", :temperature => "#{tablecells[3]}", :description => "#{tablecells[4]}", :windspeed => "#{tablecells[5]}"
 
 end
 puts '*****END_OF_LINE*******'
 end
 
 end
-end
 
-#pkill -9 -f puma
+#Add a month to date 
+@newdate = @d+1.month
+
+end #end loopone
+loop_one # Run loop_one
+
+def after
+ puts "running after method"
+# run after all collected for month
+mymonth = (@newdate).strftime("%m")
+myyear = (@newdate).strftime("%y")
+
+$driver.get("https://www.timeanddate.com/weather/uk/london/historic?month=#{mymonth}&year=20#{myyear}")
+
+# Re-define @d as @newdate
+@d = @newdate
+end
+after # Run after
+
+end #endwhile
+
+# pkill -9 -f puma
 
 
 @student_count = "Test Variable Output"
