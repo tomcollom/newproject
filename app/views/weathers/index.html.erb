@@ -3,10 +3,9 @@
 
 <h1>Willam's Weather Database</h1>
 
-<span>Todays Date <%= @d %></span><br>
+<span>Todays Date <%= @d %></span><br><br>
 
-
-<%= button_to 'Run Scraoer', loop_path, method: :get %>
+<%= button_to 'Run Program', loop_path, method: :get %><br>
 
 <%= @allthem %>
 
@@ -42,4 +41,4 @@
 
 <br>
 
-<%= link_to 'New Weather', new_weather_path %>
+<%= link_to 'Add Weather Entry', new_weather_path %>

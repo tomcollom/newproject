@@ -15,6 +15,7 @@ before_action :set_weather, only: [:show, :edit, :update, :destroy]
 
 def index
 
+@d = Date.new(2016,11,10)
 
 # main loop
 def loop_one
@@ -39,20 +40,28 @@ $driver.get("https://www.timeanddate.com/weather/uk/london/historic?month=#{mymo
   
 select = $driver.find_element(:id, "wt-his-select")
 @alloptions = select.find_elements(:tag_name, 'option')
-puts "spun again"
+puts "Here we go!"
 puts "https://www.timeanddate.com/weather/uk/london/historic?month=#{@mymonth}&year=20#{@myyear}"
-
-Weather.create :city => "Southampton", :date => "05032016", :time => "09:50am", :temperature => "60 Deg", :description => "cloudy", :windspeed => "88%"
 
 @alloptions.each do |i|
 @allthem = puts i.attribute('value')
 i.click
 sleep 1
 
-$driver.find_elements(xpath: "//table[@id='wt-his']/tbody/tr").each.with_index(1) do |_,index|
-$driver.find_elements(xpath: "//table[@id='wt-his']//tr[#{index}]|.//table[@id='wt-his']//tr[#{index}]/td[position()>1]").each do |cell1|
+tablecells = []
+tablecells.clear
+#This is scraping the data -->
+
+$driver.find_elements(xpath: "//table[@id='wt-his']/tbody/tr").each.with_index(1) do |_,index|   # Find each table ROW 
+$driver.find_elements(xpath: "//table[@id='wt-his']//tr[#{index}]|.//table[@id='wt-his']//tr[#{index}]/td[position()>1]").each do |cell1| # Find each CELL for the INDEX ROW above 
 $line = cell1.text.split(',')
 print $line
+
+tablecells.push($line)
+
+Weather.create :city => "#{tablecells[0]}", :date => "#{tablecells[1]}", :time => "#{tablecells[2]}", :temperature => "#{tablecells[3]}", :description => "#{tablecells[4]}", :windspeed => "#{tablecells[5]}"
+
+
 
 end
 puts '*****END_OF_LINE*******'
@@ -61,9 +70,7 @@ end
 end
 end
 
-
-
-
+#pkill -9 -f puma
 
 
 @student_count = "Test Variable Output"
