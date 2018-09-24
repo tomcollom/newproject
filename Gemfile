@@ -36,6 +36,7 @@ gem 'selenium-webdriver'
 gem 'chromedriver-helper'
 gem 'activesupport'
 gem 'date'
+gem 'will_paginate'
 
 
 

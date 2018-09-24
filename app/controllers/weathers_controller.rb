@@ -5,76 +5,69 @@ require 'active_support/core_ext/integer/time'
 require 'uri'
 require 'active_record'
 
-
 class WeathersController < ApplicationController
 helper_method :loop_one
 before_action :set_weather, only: [:show, :edit, :update, :destroy]
 
-# Each controller action is a page and data query :: the method will be run to give the data for that template
-# GET /weathers.json
-
 def index
-  
+ 
 # main loop
 def loop_one
   
-@d = Date.new(2018,9,21)
+@d = Date.new(2018,9,01)
 
 # Keep repeating until todays date is hit 
 while @d < Date.today
   
-# Format date and pass to URL
-mymonth = (@d).strftime("%m")
-myyear = (@d).strftime("%y")
+# Date and location params
+@mymonth = (@d).strftime("%m")
+@myyear = (@d).strftime("%y")
+@mycity = "London"
+
+@timelook = Time.now
 
 # Selenium Configuration
-
 options = Selenium::WebDriver::Chrome::Options.new(args: ['headless']) 
 $driver = Selenium::WebDriver.for(:chrome, options: options)
 
 # Request with params
-$driver.get("https://www.timeanddate.com/weather/uk/london/historic?month=#{mymonth}&year=20#{myyear}")
+$driver.get("https://www.timeanddate.com/weather/uk/#{@mycity}/historic?month=#{@mymonth}&year=20#{@myyear}")
+@drives = $driver.get("https://www.timeanddate.com/weather/uk/#{@mycity}/historic?month=#{@mymonth}&year=20#{@myyear}")
 
-@drives = $driver.get("https://www.timeanddate.com/weather/uk/london/historic?month=#{mymonth}&year=20#{myyear}")
-  
 select = $driver.find_element(:id, "wt-his-select")
 @alloptions = select.find_elements(:tag_name, 'option')
 puts "Here we go!"
 puts "https://www.timeanddate.com/weather/uk/london/historic?month=#{@mymonth}&year=20#{@myyear}"
 
 @alloptions.each do |i|
-@allthem = puts i.attribute('value')
+@allthem = i.attribute('value')
 i.click
-sleep 1
+sleep 3
 
+timesnow = ["00:50","01:50","02:50","03:50","04:50","05:50","06:50","07:50","08:50","09:50","10:50","11:50","12:50","13:50","14:50","15:50","16:50","17:50","18:50","19:50","20:50","21:50","22:50","23:50"]
 tablecells = []
 tablecells.clear
-#This is scraping the data -->
 
 $driver.find_elements(xpath: "//table[@id='wt-his']/tbody/tr").each.with_index(1) do |_,index|   # Find each table ROW 
 $driver.find_elements(xpath: "//table[@id='wt-his']//tr[#{index}]/td[position()>1]").each do |cell1| # Find each CELL for the INDEX ROW above 
 
-#//table[@id='wt-his']//tr[#{index}]|.
-
 $line = cell1.text.split(',')
-
-#print $line
-
 tablecells.push($line)
 
-puts tablecells[0] 
+$newdex1 = index
+$newdex2 = $newdex1 + 1
+
+end
+
+
+Weather.create :city => "#{@mycity}", :date => "#{@allthem}", :time => "#{timesnow[$newdex2]}", :temperature => "#{tablecells[0]}", :description => "#{tablecells[1]}", :windspeed => "#{tablecells[2]}"
+
 
 tablecells.clear
 
-
-#Weather.create :city => "#{tablecells[0]}", :date => "#{tablecells[1]}", :time => "#{tablecells[2]}", :temperature => "#{tablecells[3]}", :description => "#{tablecells[4]}", :windspeed => "#{tablecells[5]}"
-
-end
-puts '*****END_OF_LINE*******'
-end
-
-end
-
+end #end cell1 
+end #end row index
+  
 #Add a month to date 
 @newdate = @d+1.month
 
@@ -82,7 +75,7 @@ end #end loopone
 loop_one # Run loop_one
 
 def after
- puts "running after method"
+puts "running after method"
 # run after all collected for month
 mymonth = (@newdate).strftime("%m")
 myyear = (@newdate).strftime("%y")
@@ -98,11 +91,10 @@ end #endwhile
 
 # pkill -9 -f puma
 
-
 @student_count = "Test Variable Output"
 @weathers = Weather.all
   
-  end
+end
 
   # GET /weathers/1
   # GET /weathers/1.json
@@ -169,3 +161,18 @@ end #endwhile
       params.require(:weather).permit(:city, :date, :time, :temperature, :description, :windspeed)
     end
 end
+
+
+
+
+
+
+#@timesnow = ["00:50","12:50","01:50","02:50","03:50","04:50","05:50","06:50","07:50","08:50","09:50","10:50","11:50","12:50","13:50"]
+#@timesnow.each do |look|
+ # @fin = look
+
+
+
+
+
+

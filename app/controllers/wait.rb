@@ -5,7 +5,6 @@ require 'active_support/core_ext/integer/time'
 require 'uri'
 require 'active_record'
 
-
 # Enter Start Date for Scrape
 @d = Date.new(2016,11,10)
 
@@ -35,25 +34,41 @@ puts i.attribute('value')
 i.click
 sleep 1
 
-#puts $driver.find_element(:class, "sticky-wr").text
+$timesnow = ["00:50","01:50","02:50","03:50","04:50","05:50","06:50","07:50","08:50","09:50","10:50","11:50","12:50","13:50","14:50","15:50","16:50","17:50","18:50","19:50","20:50","21:50","22:50","23:50"]
 
-#Formatting Output / Iterate for DB Entry 
+tablecells = []
+tablecells.clear
 
-$driver.find_elements(xpath: "//table[@id='wt-his']/tbody/tr").each.with_index(1) do |_,index|
-$driver.find_elements(xpath: "//table[@id='wt-his']//tr[#{index}]|.//table[@id='wt-his']//tr[#{index}]/td[position()>1]").each do |cell1|
+$driver.find_elements(xpath: "//table[@id='wt-his']/tbody/tr").each.with_index(1) do |_,index|   # Find each table ROW 
+$driver.find_elements(xpath: "//table[@id='wt-his']//tr[#{index}]/td[position()>1]").each do |cell1| # Find each CELL for the INDEX ROW above 
+
 $line = cell1.text.split(',')
-print $line
+tablecells.push($line)
 
-
+$newdex1 = index
+@newdex2 = $newdex1 + 1
+@newdex2.to_i
 
 end
+
+puts $timesnow[0]
+puts $timesnow[@newdex2]
+#$timesnow[$newdex2]
+
+puts tablecells[0]
+puts tablecells[1]
+puts tablecells[2]
+puts tablecells[3]
 puts '*****END_OF_LINE*******'
 end
+
 
 end
 
 #Add a month to date 
 @newdate = @d+1.month
+
+
 
 end #end loopone
 loop_one # Run loop_one
