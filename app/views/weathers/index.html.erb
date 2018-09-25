@@ -1,7 +1,7 @@
 
 <p id="notice"><%= notice %></p>
 
-<h1>Willam's Weather Database</h1>
+<h1>Database</h1>
 
 <span>Todays Date <%= @d %></span><br><br>
 
@@ -18,6 +18,9 @@
       <th>Temperature</th>
       <th>Description</th>
       <th>Windspeed</th>
+       <th>Humidity</th>
+        <th>Barometer</th>
+         <th>Visibility</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -31,6 +34,9 @@
         <td><%= weather.temperature %></td>
         <td><%= weather.description %></td>
         <td><%= weather.windspeed %></td>
+        <td><%= weather.humidity %></td>
+        <td><%= weather.barometer %></td>
+        <td><%= weather.visibility %></td>
         <td><%= link_to 'Show', weather %></td>
         <td><%= link_to 'Edit', edit_weather_path(weather) %></td>
         <td><%= link_to 'Destroy', weather, method: :delete, data: { confirm: 'Are you sure?' } %></td>

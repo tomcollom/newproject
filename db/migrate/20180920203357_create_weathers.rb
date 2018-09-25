@@ -7,7 +7,6 @@ class CreateWeathers < ActiveRecord::Migration[5.2]
       t.string :temperature
       t.string :description
       t.string :windspeed
-
       t.timestamps
     end
   end

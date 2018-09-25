@@ -11,227 +11,23 @@ before_action :set_weather, only: [:show, :edit, :update, :destroy]
 
 
 
+
+
+
+
 def index
  
 def loop_one
-  
-# LIST OF ALL LOCATIONS TO GET  
-["aberystwyth", 
-"alnwick", 
-"armagh", 
-"aylesbury", 
-"bangor", 
-"barnsley", 
-"basildon", 
-"bath", 
-"belfast", 
-"berwick-upon-tweed", 
-"bicester", 
-"bideford", 
-"birmingham", 
-"blackburn", 
-"blackpool", 
-"blandford forum", 
-"bodmin", 
-"bolton", 
-"bournemouth", 
-"bracknell", 
-"bradford", 
-"brentwood", 
-"bridlington", 
-"brighton", 
-"bristol", 
-"bromley", 
-"burnley", 
-"bury", 
-"cambridge", 
-"canterbury", 
-"canvey island", 
-"cardiff", 
-"carlisle", 
-"caversham", 
-"chatham", 
-"chatteris", 
-"chelmsford", 
-"cheltenham", 
-"chesham", 
-"chester", 
-"chesterfield", 
-"chichester", 
-"clacton-on-sea", 
-"cleethorpes", 
-"clitheroe", 
-"coatbridge", 
-"colchester", 
-"colwyn bay", 
-"coventry", 
-"craigavon", 
-"crawley", 
-"croydon", 
-"darlington", 
-"derby", 
-"doncaster", 
-"dover", 
-"dudley", 
-"dumbarton", 
-"dundee", 
-"dunfermline", 
-"durham", 
-"eastbourne", 
-"edinburgh", 
-"ely", 
-"enfield", 
-"epsom", 
-"exeter", 
-"falkirk", 
-"fauldhouse", 
-"faversham", 
-"felixstowe", 
-"fortwilliam", 
-"fraserburgh", 
-"gillingham", 
-"glasgow", 
-"glastonbury", 
-"greatyarmouth", 
-"greenwichborough", 
-"grimsby", 
-"guildford", 
-"hartlepool", 
-"harwich", 
-"hastings", 
-"hatfield", 
-"haywardsheath", 
-"hexham", 
-"highwycombe", 
-"hinckley", 
-"hitchin", 
-"holyhead", 
-"horsham", 
-"huddersfield", 
-"hughtown", 
-"huntingdon", 
-"inverness", 
-"ipswich", 
-"jarrow", 
-"kelso", 
-"kendal", 
-"kettering", 
-"kingslynn", 
-"kingstonuponhull", 
-"kirkwall", 
-"lancaster", 
-"launceston", 
-"leeds", 
-"leicester", 
-"lerwick", 
-"lichfield", 
-"lincoln", 
-"lindisfarne", 
-"lisburn", 
-"liverpool", 
-"london", 
-"londonderry", 
-"loughborough", 
-"loughton", 
-"lowestoft", 
-"luton", 
-"maidstone", 
-"manchester", 
-"marketharborough", 
-"middlesbrough", 
-"milton keynes", 
-"minehead", 
-"morpeth", 
-"newcastle upon tyne", 
-"newport", 
-"newport", 
-"newtown", 
-"northampton", 
-"norwich", 
-"nottingham", 
-"oban", 
-"oldham", 
-"omagh", 
-"oxford", 
-"penrith", 
-"penzance", 
-"perth", 
-"peterborough", 
-"pitlochry", 
-"plymouth", 
-"poole", 
-"portree", 
-"portsmouth", 
-"preston", 
-"prestwick", 
-"reading", 
-"ripon", 
-"romsey", 
-"rotherham", 
-"runcorn", 
-"salford", 
-"salisbury", 
-"sheffield", 
-"shrewsbury", 
-"silverstone", 
-"skegness", 
-"skelmersdale", 
-"slough", 
-"solihull", 
-"southampton", 
-"southend-on-sea", 
-"standrews", 
-"stdavids", 
-"sthelens", 
-"stafford", 
-"stevenage", 
-"stirling", 
-"stockport", 
-"stoke-on-trent", 
-"stornoway", 
-"sudbury", 
-"sunderland", 
-"sutton coldfield", 
-"swanage", 
-"swansea", 
-"swindon", 
-"taunton", 
-"telford", 
-"thornton-cleveleys", 
-"truro", 
-"uckfield", 
-"uxbridge", 
-"wakefield", 
-"walsall", 
-"warrington", 
-"watford", 
-"wellingborough", 
-"west bromwich", 
-"weston-super-mare", 
-"weymouth", 
-"whitstable", 
-"winchester", 
-"witney", 
-"wokingham", 
-"wolverhampton", 
-"worcester", 
-"worthing", 
-"yatton", 
-"yeovil", 
-"york"].each do |location|
-  
-  
-@mycity = location
 
 @d = Date.new(2010,1,01) # STARTING POINT MUST START FROM BEGINNG ON TIME!!!
 
 # Keep repeating until todays date is hit 
-while @d < Date.new(2010,2,01) # FINISHING DATE - MUST BE WHOLE DATE E.G 01 JAN - MIDDLE WILL NOT WORK
+while @d < Date.new(2010,2,01) # FINISHING DATE
   
 # Date and location params
 @mymonth = (@d).strftime("%m")
 @myyear = (@d).strftime("%y")
-
+@mycity = "london"  # This is case sensitive - must be lowercase
 
 # Selenium Configuration
 options = Selenium::WebDriver::Chrome::Options.new(args: ['headless']) 
@@ -283,7 +79,7 @@ def after
   
 @newdate = @d+1.month
   
-puts "running after method #{@newdate}"
+puts "running after method"
 
 @mymonth2 = (@newdate).strftime("%m")
 @myyear2 = (@newdate).strftime("%y")
@@ -308,25 +104,21 @@ end #endwhile
 puts "loop cycle has completed PLACE NEW TOWN FUNCTION HERE"
 
 
-def nexttown
+#def nexttown
   
-  puts "loop cycle has completed PLACE NEW TOWN FUNCTION HERE NEXTDOWN!!!"
 
 # locations = [”aberystwyth”,”alnwick”,”armagh”,”aylesbury”,”bangor”,”barnsley”,”basildon”,”bath”,”belfast”,”berwick-upon-tweed”,”bicester”,”bideford”,”birmingham”,”blackburn”,”blackpool”,”blandford forum”,”bodmin”,”bolton”,”bournemouth”,”bracknell”,”bradford”,”brentwood”,”bridlington”,”brighton”,”bristol”,”bromley”,”burnley”,”bury”,”cambridge”,”canterbury”,”canvey island”,”cardiff”,”carlisle”,”caversham”,”chatham”,”chatteris”,”chelmsford”,”cheltenham”,”chesham”,”chester”,”chesterfield”,”chichester”,”clacton-on-sea”,”cleethorpes”,”clitheroe”,”coatbridge”,”colchester”,”colwyn bay”,”coventry”,”craigavon”,”crawley”,”croydon”,”darlington”,”derby”,”doncaster”,”dover”,”dudley”,”dumbarton”,”dundee”,”dunfermline”,”durham”,”eastbourne”,”edinburgh”,”ely”,”enfield”,”epsom”,”exeter”,”falkirk”,”fauldhouse”,”faversham”,”felixstowe”,”fort william”,”fraserburgh”,”gillingham”,”glasgow”,”glastonbury”,”great yarmouth”,”greenwich borough”,”grimsby”,”guildford”,”hartlepool”,”harwich”,”hastings”,”hatfield”,”haywards heath”,”hexham”,”high wycombe”,”hinckley”,”hitchin”,”holyhead”,”horsham”,”huddersfield”,”hugh town”,”huntingdon”,”inverness”,”ipswich”,”jarrow”,”kelso”,”kendal”,”kettering”,”kingslynn”,”kingstonuponhull”,”kirkwall”,”lancaster”,”launceston”,”leeds”,”leicester”,”lerwick”,”lichfield”,”lincoln”,”lindisfarne”,”lisburn”,”liverpool”,”london”,”londonderry”,”loughborough”,”loughton”,”lowestoft”,”luton”,”maidstone”,”manchester”,”market harborough”,”middlesbrough”,”miltonkeynes”,”minehead”,”morpeth”,”newcastleupontyne”,”newport”,”newport”,”newtown”,”northampton”,”norwich”,”nottingham”,”oban”,”oldham”,”omagh”,”oxford”,”penrith”,”penzance”,”perth”,”peterborough”,”pitlochry”,”plymouth”,”poole”,”portree”,”portsmouth”,”preston”,”prestwick”,”reading”,”ripon”,”romsey”,”rotherham”,”runcorn”,”salford”,”salisbury”,”sheffield”,”shrewsbury”,”silverstone”,”skegness”,”skelmersdale”,”slough”,”solihull”,”southampton”,”southend-on-sea”,”standrews”,”stdavids”,”sthelens”,”stafford”,”stevenage”,”stirling”,”stockport”,”stoke-on-trent”,”stornoway”,”sudbury”,”sunderland”,”suttoncoldfield”,”swanage”,”swansea”,”swindon”,”taunton”,”telford”,”thornton-cleveleys”,”truro”,”uckfield”,”uxbridge”,”wakefield”,”walsall”,”warrington”,”watford”,”wellingborough”,”westbromwich”,”weston-super-mare”,”weymouth”,”whitstable”,”winchester”,”witney”,”wokingham”,”wolverhampton”,”worcester”,”worthing”,”yatton”,”yeovil”,”york”]
 puts "https://www.timeanddate.com/weather/uk/#{@mycity}/historic?month=#{@mymonth2}&year=20#{@myyear2}"
 #loop_one # run loop 1 with new data
 
-end #endnexttown
-
-nexttown
-
+#end #endnexttown
 
 end #endwhile
 
 #nexttown
 
 
-end #end location do // WRAP around who function 
+
 
 
 

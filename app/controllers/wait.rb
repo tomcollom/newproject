@@ -46,28 +46,24 @@ $line = cell1.text.split(',')
 tablecells.push($line)
 
 $newdex1 = index
-@newdex2 = $newdex1 + 1
-@newdex2.to_i
+@newdex2 = $newdex1 - 1
+@newdex2.to_i 
 
 end
 
-puts $timesnow[0]
 puts $timesnow[@newdex2]
+
 #$timesnow[$newdex2]
 
 puts tablecells[0]
-puts tablecells[1]
-puts tablecells[2]
-puts tablecells[3]
+
 puts '*****END_OF_LINE*******'
 end
-
 
 end
 
 #Add a month to date 
 @newdate = @d+1.month
-
 
 
 end #end loopone
