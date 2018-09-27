@@ -1,8 +1,6 @@
 
 <p id="notice"><%= notice %></p>
 
-<h1>Database</h1>
-
 <span>Todays Date <%= @d %></span><br><br>
 
 <%= button_to 'Run Program', loop_path, method: :get %><br>
@@ -37,9 +35,7 @@
         <td><%= weather.humidity %></td>
         <td><%= weather.barometer %></td>
         <td><%= weather.visibility %></td>
-        <td><%= link_to 'Show', weather %></td>
-        <td><%= link_to 'Edit', edit_weather_path(weather) %></td>
-        <td><%= link_to 'Destroy', weather, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+       
       </tr>
     <% end %>
   </tbody>
