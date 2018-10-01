@@ -27,11 +27,7 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-gem 'httparty'
-gem 'nokogiri'
-gem 'byebug'
-gem 'mechanize' 
-gem 'watir'
+
 gem 'selenium-webdriver'
 gem 'chromedriver-helper'
 gem 'activesupport'

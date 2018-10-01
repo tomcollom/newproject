@@ -24,7 +24,7 @@
   </thead>
 
   <tbody>
-    <% @weathers.each do |weather| %>
+    <% @weathers.first(500).each do |weather| %>
       <tr>
         <td><%= weather.city %></td>
         <td><%= weather.date %></td>
